@@ -1,4 +1,4 @@
-package kr.co.boardservice.application.comment;
+package kr.co.boardservice.application;
 
 import kr.co.boardservice.domain.article.ArticleRepository;
 import kr.co.boardservice.domain.comment.Comment;
@@ -8,23 +8,21 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CommentService {
-
     private final CommentRepository commentRepository;
     private final ArticleRepository articleRepository;
 
-    public CommentService(CommentRepository commentRepository,
-                          ArticleRepository articleRepository) {
+    public CommentService(CommentRepository commentRepository, ArticleRepository articleRepository) {
         this.commentRepository = commentRepository;
         this.articleRepository = articleRepository;
     }
 
     @Transactional
     public Comment addComment(Long memberId, Long articleId, String content) {
-        // 게시글 존재 확인
         articleRepository.findById(articleId)
                 .orElseThrow(() -> new IllegalArgumentException("게시글이 없습니다."));
 
         Comment comment = Comment.createNew(content, memberId, articleId);
+
         return commentRepository.save(comment);
     }
 
@@ -32,9 +30,11 @@ public class CommentService {
     public void deleteComment(Long commentId, Long currentMemberId) {
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new IllegalArgumentException("댓글이 없습니다."));
+
         if (!comment.isWrittenBy(currentMemberId)) {
             throw new SecurityException("본인만 삭제할 수 있습니다.");
         }
+
         commentRepository.deleteById(commentId);
     }
 }

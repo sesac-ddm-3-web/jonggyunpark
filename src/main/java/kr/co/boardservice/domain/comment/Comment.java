@@ -25,7 +25,6 @@ public class Comment {
         return this.authorId != null && this.authorId.equals(memberId);
     }
 
-    // getters
     public Long getId() {
         return id;
     }

@@ -11,7 +11,6 @@ import java.util.Optional;
 
 @Repository
 public class ArticleRepositoryImpl implements ArticleRepository {
-
     private final ArticleJpaRepository jpaRepository;
 
     public ArticleRepositoryImpl(ArticleJpaRepository jpaRepository) {

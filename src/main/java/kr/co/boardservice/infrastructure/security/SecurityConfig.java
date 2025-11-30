@@ -9,16 +9,15 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfig {
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(csrf -> csrf.disable()) // 과제/개발용
+    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
                         .requestMatchers("/auth/signup", "/auth/login").permitAll()
@@ -28,7 +27,7 @@ public class SecurityConfig {
                         .loginPage("/auth/login")
                         .loginProcessingUrl("/auth/login")
                         .defaultSuccessUrl("/articles", true)
-                        .failureUrl("/auth/login?error") // 비밀번호 불일치? redirect
+                        .failureUrl("/auth/login?error") // 비밀번호 불일치 시 redirect
                         .permitAll()
                 )
                 .logout(logout -> logout
@@ -36,6 +35,6 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/auth/login?logout")
                 );
 
-        return http.build();
+        return httpSecurity.build();
     }
 }

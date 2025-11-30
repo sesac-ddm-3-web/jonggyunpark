@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "article")
 public class ArticleJpaEntity {
-
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -30,7 +29,8 @@ public class ArticleJpaEntity {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    protected ArticleJpaEntity() {}
+    protected ArticleJpaEntity() {
+    }
 
     public ArticleJpaEntity(Long id, String title, String content, Long memberId,
                             long viewCount, LocalDateTime createdAt, LocalDateTime updatedAt) {

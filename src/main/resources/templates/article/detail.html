@@ -30,7 +30,8 @@
                 <form th:if="${isOwner}"
                       th:action="@{|/articles/${article.id}/delete|}" method="post">
                     <button class="btn btn-danger btn-sm"
-                            onclick="return confirm('게시글을 삭제하시겠습니까?');">삭제</button>
+                            onclick="return confirm('게시글을 삭제하시겠습니까?');">삭제
+                    </button>
                 </form>
             </div>
         </div>
@@ -45,7 +46,8 @@
                     <div>
                         <div class="fw-semibold" th:text="${comment.authorId}">작성자 ID</div>
                         <div style="white-space: pre-line;"
-                             th:text="${comment.content}">내용</div>
+                             th:text="${comment.content}">내용
+                        </div>
                     </div>
                     <div class="text-end">
                         <div class="small text-muted mb-1"
@@ -55,7 +57,8 @@
                               th:action="@{|/comments/${comment.id}/delete|}" method="post">
                             <input type="hidden" name="articleId" th:value="${article.id}">
                             <button class="btn btn-outline-danger btn-sm"
-                                    onclick="return confirm('댓글을 삭제하시겠습니까?');">삭제</button>
+                                    onclick="return confirm('댓글을 삭제하시겠습니까?');">삭제
+                            </button>
                         </form>
                     </div>
                 </div>

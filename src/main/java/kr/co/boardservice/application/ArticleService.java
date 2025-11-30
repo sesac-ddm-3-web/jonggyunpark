@@ -1,4 +1,4 @@
-package kr.co.boardservice.application.article;
+package kr.co.boardservice.application;
 
 import kr.co.boardservice.domain.article.Article;
 import kr.co.boardservice.domain.article.ArticleRepository;
@@ -11,12 +11,10 @@ import java.util.List;
 
 @Service
 public class ArticleService {
-
     private final ArticleRepository articleRepository;
     private final CommentRepository commentRepository;
 
-    public ArticleService(ArticleRepository articleRepository,
-                          CommentRepository commentRepository) {
+    public ArticleService(ArticleRepository articleRepository, CommentRepository commentRepository) {
         this.articleRepository = articleRepository;
         this.commentRepository = commentRepository;
     }
@@ -24,6 +22,7 @@ public class ArticleService {
     @Transactional
     public Article createArticle(Long authorId, String title, String content) {
         Article article = Article.createNew(title, content, authorId);
+
         return articleRepository.save(article);
     }
 
@@ -36,7 +35,9 @@ public class ArticleService {
     public Article getArticleAndIncreaseViewCount(Long id) {
         Article article = articleRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("게시글이 없습니다."));
+
         article.increaseViewCount();
+
         return articleRepository.save(article);
     }
 
@@ -49,9 +50,11 @@ public class ArticleService {
     public void deleteArticle(Long id, Long currentMemberId) {
         Article article = articleRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("게시글이 없습니다."));
+
         if (!article.isWrittenBy(currentMemberId)) {
             throw new SecurityException("본인만 삭제할 수 있습니다.");
         }
+
         articleRepository.deleteById(id);
     }
 }

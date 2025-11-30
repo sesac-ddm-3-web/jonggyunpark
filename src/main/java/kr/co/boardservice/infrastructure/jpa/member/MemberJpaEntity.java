@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "member")
 public class MemberJpaEntity {
-
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -21,7 +20,8 @@ public class MemberJpaEntity {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    protected MemberJpaEntity() {}
+    protected MemberJpaEntity() {
+    }
 
     public MemberJpaEntity(Long id, String username, String password, LocalDateTime createdAt) {
         this.id = id;

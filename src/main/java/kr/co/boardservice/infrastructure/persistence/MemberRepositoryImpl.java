@@ -10,7 +10,6 @@ import java.util.Optional;
 
 @Repository
 public class MemberRepositoryImpl implements MemberRepository {
-
     private final MemberJpaRepository jpaRepository;
 
     public MemberRepositoryImpl(MemberJpaRepository jpaRepository) {

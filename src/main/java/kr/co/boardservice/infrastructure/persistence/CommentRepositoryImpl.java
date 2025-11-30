@@ -11,7 +11,6 @@ import java.util.Optional;
 
 @Repository
 public class CommentRepositoryImpl implements CommentRepository {
-
     private final CommentJpaRepository jpaRepository;
 
     public CommentRepositoryImpl(CommentJpaRepository jpaRepository) {

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class BoardUserDetailsService implements UserDetailsService {
-
     private final MemberRepository memberRepository;
 
     public BoardUserDetailsService(MemberRepository memberRepository) {
@@ -20,6 +19,7 @@ public class BoardUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Member member = memberRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
         return new BoardUserDetails(member);
     }
 }

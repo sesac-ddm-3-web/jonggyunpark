@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "comment")
 public class CommentJpaEntity {
-
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -24,7 +23,8 @@ public class CommentJpaEntity {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    protected CommentJpaEntity() {}
+    protected CommentJpaEntity() {
+    }
 
     public CommentJpaEntity(Long id, String content, Long memberId,
                             Long articleId, LocalDateTime createdAt) {

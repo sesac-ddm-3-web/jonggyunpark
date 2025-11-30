@@ -8,7 +8,6 @@ import java.util.Collection;
 import java.util.List;
 
 public class BoardUserDetails implements UserDetails {
-
     private final Member member;
 
     public BoardUserDetails(Member member) {

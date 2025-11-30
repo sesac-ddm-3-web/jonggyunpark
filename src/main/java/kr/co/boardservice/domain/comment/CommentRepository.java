@@ -5,10 +5,7 @@ import java.util.Optional;
 
 public interface CommentRepository {
     Comment save(Comment comment);
-
     Optional<Comment> findById(Long id);
-
     List<Comment> findByArticleIdOrderByCreatedAtAsc(Long articleId);
-
     void deleteById(Long id);
 }
