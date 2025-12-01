@@ -1,9 +1,11 @@
 package kr.co.boardservice.application;
 
+import jakarta.persistence.EntityNotFoundException;
 import kr.co.boardservice.domain.article.Article;
 import kr.co.boardservice.domain.article.ArticleRepository;
 import kr.co.boardservice.domain.comment.Comment;
 import kr.co.boardservice.domain.comment.CommentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +16,7 @@ public class ArticleService {
     private final ArticleRepository articleRepository;
     private final CommentRepository commentRepository;
 
+    @Autowired
     public ArticleService(ArticleRepository articleRepository, CommentRepository commentRepository) {
         this.articleRepository = articleRepository;
         this.commentRepository = commentRepository;
@@ -27,14 +30,14 @@ public class ArticleService {
     }
 
     @Transactional(readOnly = true)
-    public List<Article> listArticles() {
-        return articleRepository.findAllOrderByCreatedAtDesc();
+    public List<Article> findAllArticles() {
+        return articleRepository.findAllArticlesByCreatedAtDesc();
     }
 
     @Transactional
     public Article getArticleAndIncreaseViewCount(Long id) {
         Article article = articleRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("게시글이 없습니다."));
+                .orElseThrow(() -> new EntityNotFoundException("게시글이 없습니다."));
 
         article.increaseViewCount();
 
@@ -49,7 +52,7 @@ public class ArticleService {
     @Transactional
     public void deleteArticle(Long id, Long currentMemberId) {
         Article article = articleRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("게시글이 없습니다."));
+                .orElseThrow(() -> new EntityNotFoundException("게시글이 없습니다."));
 
         if (!article.isWrittenBy(currentMemberId)) {
             throw new SecurityException("본인만 삭제할 수 있습니다.");

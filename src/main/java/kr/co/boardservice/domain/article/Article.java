@@ -7,12 +7,12 @@ public class Article {
     private String title;
     private String content;
     private Long authorId;
-    private long viewCount;
+    private Long viewCount;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
     public Article(Long id, String title, String content, Long authorId,
-                   long viewCount, LocalDateTime createdAt, LocalDateTime updatedAt) {
+                   Long viewCount, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -51,7 +51,7 @@ public class Article {
         return authorId;
     }
 
-    public long getViewCount() {
+    public Long getViewCount() {
         return viewCount;
     }
 
@@ -61,9 +61,5 @@ public class Article {
 
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
     }
 }

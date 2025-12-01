@@ -30,7 +30,7 @@ public class ArticleRepositoryImpl implements ArticleRepository {
     }
 
     @Override
-    public List<Article> findAllOrderByCreatedAtDesc() {
+    public List<Article> findAllArticlesByCreatedAtDesc() {
         return jpaRepository.findAllByOrderByCreatedAtDesc().stream()
                 .map(ArticleJpaEntity::toDomain)
                 .toList();

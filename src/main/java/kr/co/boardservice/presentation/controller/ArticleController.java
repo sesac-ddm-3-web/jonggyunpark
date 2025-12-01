@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/articles")
 public class ArticleController {
     private final ArticleService articleService;
     private final CommentService commentService;
@@ -23,16 +22,16 @@ public class ArticleController {
         this.commentService = commentService;
     }
 
-    @GetMapping
+    @RequestMapping(value = "/articles", method = RequestMethod.GET)
     public String list(Model model) {
-        List<Article> articles = articleService.listArticles();
+        List<Article> articles = articleService.findAllArticles();
 
         model.addAttribute("articles", articles);
 
         return "article/list";
     }
 
-    @GetMapping("/{id}")
+    @RequestMapping(value = "/articles/{id}", method = RequestMethod.GET)
     public String detail(
         @PathVariable Long id,
         @AuthenticationPrincipal BoardUserDetails userDetails,
@@ -53,12 +52,12 @@ public class ArticleController {
         return "article/detail";
     }
 
-    @GetMapping("/new")
+    @RequestMapping(value = "/articles/new", method = RequestMethod.GET)
     public String newForm() {
         return "article/new";
     }
 
-    @PostMapping
+    @RequestMapping(value = "/articles", method = RequestMethod.POST)
     public String create(
             @RequestParam String title,
             @RequestParam String content,
@@ -69,7 +68,7 @@ public class ArticleController {
         return "redirect:/articles";
     }
 
-    @PostMapping("/{id}/delete")
+    @RequestMapping(value = "/articles/{id}/delete", method = RequestMethod.POST)
     public String delete(
             @PathVariable Long id,
             @AuthenticationPrincipal BoardUserDetails userDetails

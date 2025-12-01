@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/comments")
 public class CommentController {
     private final CommentService commentService;
 
@@ -15,7 +14,7 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    @PostMapping
+    @RequestMapping(value = "/comments", method = RequestMethod.POST)
     public String create(
             @RequestParam Long articleId,
             @RequestParam String content,
@@ -26,7 +25,7 @@ public class CommentController {
         return "redirect:/articles/" + articleId;
     }
 
-    @PostMapping("/{id}/delete")
+    @RequestMapping(value = "/comments/{id}/delete", method = RequestMethod.POST)
     public String delete(
             @PathVariable Long id,
             @RequestParam Long articleId,
